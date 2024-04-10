@@ -1,0 +1,22 @@
+export const ParamsNames = {
+    dt: "Δt",
+    dr: "Δr",
+    t_max: "t<sub>max</sub>",
+    sigma_0: "σ<sup>0</sup>",
+    tau_max: "τ<sub>max</sub>",
+    q: "q",
+    R1: "R<sub>1</sub>",
+    R2: "R<sub>2</sub>",
+    E: "E",
+    mu: "μ",
+    b: "b",
+    n: 'n',
+    lambda: 'λ',
+    mu_1: 'μ<sub>1</sub>',
+    m: 'm',
+    c_p: 'c',
+    alpha1_p: 'α<sub>1</sub>',
+    mAlpha_p: 'mα',
+    A1_p: 'A<sub>1</sub>',
+    mA_p: 'mA'
+}
