@@ -84,48 +84,50 @@ const BuildComponent = function () {
     }
 
     const getApiData = async (params) => {
-        await fetch(
-            "http://localhost:8080/run",
-            {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: params
-            }
-        )
-            .then((response) => {
-                console.log(response)
-            })
-        taskRef.current = setInterval(async () => {
+        if (!isClick) {
             await fetch(
-                "http://localhost:8080/build",
+                `${process.env.REACT_APP_REST_URL}/run`,
                 {
-                    method: "GET",
+                    method: "POST",
                     headers: {
                         "Content-type": "application/json"
-                    }
+                    },
+                    body: params
+                }
+            )
+                .then((response) => {
+                    console.log(response)
                 })
-                .then(response => {
-                    if (!response) {
-                        alert('Внутрення ошибка сервера. Обратитесь к администратору')
-                    }
-                    if (response.status === 201) {
-                        setIsClick(false)
-                        clearInterval(taskRef.current)
-                    }
-                    return response.json()
-                })
-                .then(data => {
-                    console.log(data)
-                    setGraphData(data)
-                })
-                .catch(
-                    err => {
-                        console.log(err);
-                    }
-                )
-        }, 1000);
+            taskRef.current = setInterval(async () => {
+                await fetch(
+                    `${process.env.REACT_APP_REST_URL}/build`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-type": "application/json"
+                        }
+                    })
+                    .then(response => {
+                        if (!response) {
+                            alert('Внутрення ошибка сервера. Обратитесь к администратору')
+                        }
+                        if (response.status === 201) {
+                            setIsClick(false)
+                            clearInterval(taskRef.current)
+                        }
+                        return response.json()
+                    })
+                    .then(data => {
+                        console.log(data)
+                        setGraphData(data)
+                    })
+                    .catch(
+                        err => {
+                            console.log(err);
+                        }
+                    )
+            }, 1000);
+        }
     }
     let timeLines = () => <></>
     let radialLines = () => <></>
@@ -249,7 +251,7 @@ const BuildComponent = function () {
                 </div>
 
                 <input type="submit" className={"btn btn-success rounded-pill px-3"} disabled={isClick}/>
-                <Stop shutDown={() => {
+                <Stop disabled={!isClick} shutDown={() => {
                     clearInterval(taskRef.current);
                     setIsClick(false)
                 }}/>
