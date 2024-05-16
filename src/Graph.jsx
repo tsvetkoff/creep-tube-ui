@@ -2,7 +2,7 @@ import {CartesianGrid, ComposedChart, Legend, Line, Tooltip, XAxis, YAxis} from 
 import parse from 'html-react-parser';
 import TeXToSVG from "tex-to-svg";
 import {GostColors} from "./GostColors";
-import {Button} from "antd";
+import {Button, Col, Row} from "antd";
 import {CSVLink} from "react-csv";
 import {useRef} from "react";
 import {saveAs} from 'file-saver'
@@ -34,7 +34,7 @@ const Graph = function (props) {
         const length = Object.keys(GostColors).length;
         return graphDataKeys.map((key, index) => {
             return (
-                <Line key={key} strokeWidth={5} type="monotone" dataKey={key} fill="#8884d8"
+                <Line key={key} strokeWidth={3} type="monotone" dataKey={key} fill="#8884d8"
                       stroke={generateGostColors(index % length)} dot={false}/>)
         })
 
@@ -78,14 +78,22 @@ const Graph = function (props) {
         }
     };
 
+    function formatScale(value) {
+        return parseFloat(value.toString().replace(/(\.d*?[1-9])0*$/, '$1').replace(/\.$/, ''))
+    }
+
     return (
         <div>
             <div ref={chartRef} className={"container pt-5"}>
                 <YaxisLabel/>
                 <ComposedChart width={700} height={350} data={data}>
-                    <XAxis dataKey={abscissaName}
-                           domain={['dataMin', 'dataMax']}/>
-                    <YAxis tickFormatter={(value) => value.toFixed(3)}/>
+                    <XAxis tickFormatter={(value) => formatScale(value)} dataKey={abscissaName}
+                           domain={['dataMin', 'dataMax']}
+                           interval="preserveStartEnd"
+                    />
+                    <YAxis tickFormatter={(value) => {
+                        return formatScale(value);
+                    }}/>
                     <Tooltip/>
                     <Legend/>
                     <CartesianGrid stroke="#f5f5f5"/>
@@ -94,13 +102,19 @@ const Graph = function (props) {
                     }
                 </ComposedChart>
             </div>
-            <Button type="primary" onClick={() => {
-            }}>
-                <CSVLink data={data} filename={`${props.imageName}.csv`}>Экспорт в Excel</CSVLink>
-            </Button>
-            <Button type="primary" onClick={exportChartAsPng}>
-                Экспорт в PNG
-            </Button>
+            <Row justify={"center"}>
+                <Col>
+                    <Button type="primary" onClick={() => {
+                    }}>
+                        <CSVLink data={data} filename={`${props.imageName}.csv`}>Экспорт в Excel</CSVLink>
+                    </Button>
+                </Col>
+                <Col>
+                    <Button type="primary" onClick={exportChartAsPng}>
+                        Экспорт в PNG
+                    </Button>
+                </Col>
+            </Row>
         </div>
     )
 

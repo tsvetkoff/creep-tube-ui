@@ -17,7 +17,7 @@ const BuildComponent = function () {
     const {register, handleSubmit, control} = useForm({
         defaultValues: DefaultParamsValues
     })
-    const [nextTime, setNextTime] = useState(20)
+    const [nextTime, setNextTime] = useState(15)
     const onSubmit = (data) => {
         setIsClick(true)
         let stressTimesObjects = data['stressTimes'];
@@ -98,7 +98,7 @@ const BuildComponent = function () {
                 .then((response) => {
                     console.log(response)
                 })
-            taskRef.current = setInterval(async () => {
+            const processBuild = async () => {
                 await fetch(
                     `${process.env.REACT_APP_REST_URL}/build`,
                     {
@@ -126,9 +126,12 @@ const BuildComponent = function () {
                             console.log(err);
                         }
                     )
-            }, 1000);
+            }
+            setTimeout(processBuild, 1000)
+            taskRef.current = setInterval(processBuild, 5000);
         }
     }
+
     let timeLines = () => <></>
     let radialLines = () => <></>
     if (Object.keys(graphData).length !== 0) {
@@ -214,7 +217,7 @@ const BuildComponent = function () {
                                 <div className={"col-3"}>
                                     <Tooltip title={ParamsTooltips[k]} position="top" trigger="mouseenter"
                                              arrow={true}>
-                                        <span className="input-group-text">{parse(ParamsNames[k] + ":")}</span>
+                                        <span className="input-group-text">{parse(ParamsNames[k])}</span>
                                     </Tooltip>
                                     <input type="number"
                                            onWheel={event => event.currentTarget.blur()}
@@ -234,7 +237,7 @@ const BuildComponent = function () {
                 <div className={"input-group container pt-2"}>
                     <div className={"d-flex"}>
                             <span
-                                className={"input-group-text"}>Моменты времени отображения напряжения</span>
+                                className={"input-group-text"}>Моменты времени отображения напряжения, ч</span>
                         <button
                             type="button"
                             className={"btn btn-primary"}
@@ -250,7 +253,7 @@ const BuildComponent = function () {
                     </div>
                 </div>
 
-                <input type="submit" className={"btn btn-success rounded-pill px-3"} disabled={isClick}/>
+                <input value="Запустить" type="submit" className={"btn btn-success rounded-pill px-3"} disabled={isClick}/>
                 <Stop disabled={!isClick} shutDown={() => {
                     clearInterval(taskRef.current);
                     setIsClick(false)

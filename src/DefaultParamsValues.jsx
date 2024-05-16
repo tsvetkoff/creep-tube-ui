@@ -1,11 +1,11 @@
 export const DefaultParamsValues = {
-    "dt": 0.01,
-    "dr": 0.01,
-    "t_max": 50,
-    "sigma_0": 98.1,
-    "tau_max": 0,
+    "dt": 0.001,
+    "dr": 0.005,
+    "t_max": 1000,
+    "sigma_0": 78.48,
+    "tau_max": 32.02965,
     "q": 0,
-    "R1": 1,
+    "R1": 5,
     "R2": 10,
     "E": 56000,
     "mu": 0.3,
@@ -19,5 +19,5 @@ export const DefaultParamsValues = {
     "mAlpha_p": -0.4279,
     "A1_p": 19.72,
     "mA_p": 0,
-    stressTimes: [{time: 0}, {time: 5}, {time: 10}, {time: 15}]
+    stressTimes: [{time: 0}, {time: 10}, {time: 100}, {time: 160}]
 }
