@@ -253,7 +253,8 @@ const BuildComponent = function () {
                     </div>
                 </div>
 
-                <input value="Запустить" type="submit" className={"btn btn-success rounded-pill px-3"} disabled={isClick}/>
+                <input value="Запустить" type="submit" className={"btn btn-success rounded-pill px-3"}
+                       disabled={isClick}/>
                 <Stop disabled={!isClick} shutDown={() => {
                     clearInterval(taskRef.current);
                     setIsClick(false)
