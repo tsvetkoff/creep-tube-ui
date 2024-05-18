@@ -18,6 +18,10 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
+.form-container{
+    max-width: 620px;
+}
+
 input[type='number'],
 input[type="number"]:hover,
 input[type="number"]:focus {

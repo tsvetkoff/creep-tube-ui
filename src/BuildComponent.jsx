@@ -38,8 +38,8 @@ const BuildComponent = function () {
         name: "stressTimes"
     })
 
+    const flexWindow = 4;
     const createStressTimesInputs = () => {
-        const flexWindow = 4;
         let stressTimes = fields.map((item, index) => {
             return (
                 <div className={"d-flex container p-lg-0"}>
@@ -207,37 +207,43 @@ const BuildComponent = function () {
     }
 
 
+    function getInputsFourSlice() {
+        let inputs = Object.keys(ParamsTooltips).map(k => {
+            return (
+                <div className={"col-3"}>
+                    <Tooltip title={ParamsTooltips[k]} position="top" trigger="mouseenter"
+                             arrow={true}>
+                        <span className="input-group-text">{parse(ParamsNames[k])}</span>
+                    </Tooltip>
+                    <input type="number"
+                           onWheel={event => event.currentTarget.blur()}
+                           step={'any'}
+                           defaultValue={DefaultParamsValues[k]}  {...register(k, {
+                        required: true,
+                        valueAsNumber: true
+                    })}
+                           className="form-control form-control-success"
+                    />
+                </div>
+            )
+        });
+
+        let slicesInputs = []
+        for (let i = 0; i < inputs.length; i += flexWindow) {
+            slicesInputs.push(<div className={"row"}>{
+                inputs.slice(i, i + flexWindow)
+            }</div>)
+        }
+        return slicesInputs
+    }
+
     return (
         <div className={"d-flex"}>
-            <form className={"row-gap-3"} onSubmit={handleSubmit(onSubmit)}>
-                <div className={"input-group container"}>
-                    {
-                        Object.keys(ParamsTooltips).map(k => {
-                            return (
-                                <div className={"col-3"}>
-                                    <Tooltip title={ParamsTooltips[k]} position="top" trigger="mouseenter"
-                                             arrow={true}>
-                                        <span className="input-group-text">{parse(ParamsNames[k])}</span>
-                                    </Tooltip>
-                                    <input type="number"
-                                           onWheel={event => event.currentTarget.blur()}
-                                           step={'any'}
-                                           defaultValue={DefaultParamsValues[k]}  {...register(k, {
-                                        required: true,
-                                        valueAsNumber: true
-                                    })}
-                                           className="form-control form-control-success"
-                                    />
-
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                <div className={"input-group container pt-2"}>
+            <form className={"form-container flex-shrink-0 pl-2"} onSubmit={handleSubmit(onSubmit)}>
+                {getInputsFourSlice()}
+                <div className={"input-group pt-2"}>
                     <div className={"d-flex"}>
-                            <span
-                                className={"input-group-text"}>Моменты времени отображения напряжения, ч</span>
+                            <span className={"input-group-text"}>Моменты времени отображения напряжения, ч</span>
                         <button
                             type="button"
                             className={"btn btn-primary"}
@@ -253,7 +259,7 @@ const BuildComponent = function () {
                     </div>
                 </div>
 
-                <input value="Запустить" type="submit" className={"btn btn-success rounded-pill px-3"}
+                <input value="Запустить" type="submit" className={"btn btn-success rounded-pill px-3 mt-3"}
                        disabled={isClick}/>
                 <Stop disabled={!isClick} shutDown={() => {
                     clearInterval(taskRef.current);

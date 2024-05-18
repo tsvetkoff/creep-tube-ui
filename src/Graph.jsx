@@ -1,4 +1,4 @@
-import {CartesianGrid, ComposedChart, Legend, Line, Tooltip, XAxis, YAxis} from "recharts";
+import {CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import parse from 'html-react-parser';
 import TeXToSVG from "tex-to-svg";
 import {GostColors} from "./GostColors";
@@ -78,22 +78,14 @@ const Graph = function (props) {
         }
     };
 
-    function formatScale(value) {
-        return parseFloat(value.toString().replace(/(\.d*?[1-9])0*$/, '$1').replace(/\.$/, ''))
-    }
-
     return (
         <div>
             <div ref={chartRef} className={"container pt-5"}>
                 <YaxisLabel/>
-                <ComposedChart width={700} height={350} data={data}>
-                    <XAxis tickFormatter={(value) => formatScale(value)} dataKey={abscissaName}
-                           domain={['dataMin', 'dataMax']}
-                           interval="preserveStartEnd"
+                <ComposedChart width={404} height={250} data={data}>
+                    <XAxis type={"number"} dataKey={abscissaName} domain={['dataMin', 'dataMax']} tickCount={10}
                     />
-                    <YAxis tickFormatter={(value) => {
-                        return formatScale(value);
-                    }}/>
+                    <YAxis type={"number"}/>
                     <Tooltip/>
                     <Legend/>
                     <CartesianGrid stroke="#f5f5f5"/>

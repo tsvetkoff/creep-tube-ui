@@ -18,7 +18,7 @@ const Stop = function (props) {
     }
     return (
         <>
-            <button disabled={props.disabled} className={"btn btn-danger rounded-pill px-3"}
+            <button disabled={props.disabled} className={"btn btn-danger rounded-pill px-3 mt-3 ml-3"}
                     onClick={onClick}> Остановить
             </button>
         </>
