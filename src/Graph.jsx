@@ -1,12 +1,11 @@
-import {CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {CartesianGrid, ComposedChart, Legend, Line, Tooltip, XAxis, YAxis} from "recharts";
 import parse from 'html-react-parser';
 import TeXToSVG from "tex-to-svg";
 import {GostColors} from "./GostColors";
 import {Button, Col, Row} from "antd";
 import {CSVLink} from "react-csv";
-import {useRef} from "react";
+import React, {useRef} from "react";
 import {saveAs} from 'file-saver'
-import React from 'react'
 import html2canvas from "html2canvas";
 
 
