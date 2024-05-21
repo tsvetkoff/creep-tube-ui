@@ -84,7 +84,7 @@ const Graph = function (props) {
                 <ComposedChart width={404} height={250} data={data}>
                     <XAxis type={"number"} dataKey={abscissaName} domain={['dataMin', 'dataMax']} tickCount={10}
                     />
-                    <YAxis type={"number"}/>
+                    <YAxis type={"number"} domain={['auto', 'auto']}/>
                     <Tooltip/>
                     <Legend/>
                     <CartesianGrid stroke="#f5f5f5"/>
