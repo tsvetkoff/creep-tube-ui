@@ -82,9 +82,9 @@ const Graph = function (props) {
             <div ref={chartRef} className={"container pt-5"}>
                 <YaxisLabel/>
                 <ComposedChart width={404} height={250} data={data}>
-                    <XAxis type={"number"} dataKey={abscissaName} domain={['dataMin', 'dataMax']} tickCount={10}
-                    />
-                    <YAxis type={"number"} domain={['auto', 'auto']}/>
+                    <XAxis type={"number"} dataKey={abscissaName} domain={['dataMin', 'dataMax']} tickCount={11}
+                    includeHidden/>
+                    <YAxis type={"number"} domain={['auto', 'auto']} includeHidden/>
                     <Tooltip/>
                     <Legend/>
                     <CartesianGrid stroke="#f5f5f5"/>
