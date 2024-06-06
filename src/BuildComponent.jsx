@@ -200,10 +200,10 @@ const BuildComponent = function () {
                                          countGraphs={count}/>
                         </div>
                         <div className={"d-flex"}>
-                            <RadialGraph imageName={'s_0'} name="\Large S_0(r)" ordinates={graphs['s']}
+                            <RadialGraph imageName={'s'} name="\Large S(r)" ordinates={graphs['s']}
                                          abscissa={r}
                                          countGraphs={count}/>
-                            <RadialGraph imageName={'s'} name="\Large S(r)" ordinates={graphs['s0']} abscissa={r}
+                            <RadialGraph imageName={'s_0'} name="\Large S_0(r)" ordinates={graphs['s0']} abscissa={r}
                                          countGraphs={count}/>
                         </div>
                     </>
