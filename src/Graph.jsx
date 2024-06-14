@@ -46,36 +46,20 @@ const Graph = function (props) {
 
     const YaxisLabel = () => {
         return (
-            <svg style={{position: "absolute"}}
-                 transform={`translate(10,-30)`}>{parse(TeXToSVG(yAxisName))}</svg>
+            <foreignObject>
+                <div style={{
+                    position: "absolute",
+                    transform: "translate(10px, -30px)"
+                }}>{parse(TeXToSVG(yAxisName))}</div>
+            </foreignObject>
         )
     };
 
     const exportChartAsPng = async () => {
-        const chartNode = chartRef.current;
-        const copyChartNode = chartNode.cloneNode(true)
-        const firstElementChild = copyChartNode.firstElementChild;
-        copyChartNode.style.background = 'white'
-        copyChartNode.style.padding = '45px'
-        firstElementChild.style.left = '10px'
-        firstElementChild.style.padding = '10px'
-        firstElementChild.style.position = 'absolute'
-        console.log(copyChartNode)
-        try {
-            let iframe = document.createElement("iframe");
-            iframe.style.visibility = "hidden";
-            document.body.appendChild(iframe);
-            let iframedoc = iframe.contentDocument || iframe.contentWindow.document;
-            iframedoc.body.innerHTML = copyChartNode.outerHTML;
-            let canvas = await html2canvas(iframedoc.body, {});
-            let imgData = canvas.toDataURL("image/png");
-
-            saveAs(imgData, `${props.imageName}.png`);
-            document.body.removeChild(iframe);
-        } catch (error) {
-            console.error('Ошибка при экспорте PNG', error);
-        }
-    };
+        const canvas = await html2canvas(chartRef.current);
+        const imgData = canvas.toDataURL('image/png');
+        saveAs(imgData, `${props.imageName}.png`)
+    }
 
     return (
         <div>
@@ -83,7 +67,7 @@ const Graph = function (props) {
                 <YaxisLabel/>
                 <ComposedChart width={404} height={250} data={data}>
                     <XAxis type={"number"} dataKey={abscissaName} domain={['dataMin', 'dataMax']} tickCount={11}
-                    includeHidden/>
+                           includeHidden/>
                     <YAxis type={"number"} domain={['auto', 'auto']} includeHidden/>
                     <Tooltip/>
                     <Legend/>
