@@ -14,7 +14,7 @@ export const ParamsNames = {
     lambda: 'λ',
     mu_1: 'μ<sub>1</sub>',
     m: 'm',
-    c_p: 'c, (МПа)<sup>-m</sup> &nbsp; ч<sup>-1</sup>',
+    c_p: 'c, (МПа)<sup>-m</sup>',
     alpha1_p: 'α<sub>1</sub>, (МПа)<sup>-m<sub>α</sub>-1</sup>',
     mAlpha_p: 'm<sub>α</sub>',
     A1_p: 'A<sub>1</sub>, (МПа)<sup>m<sub>A</sub>-1</sup>',
