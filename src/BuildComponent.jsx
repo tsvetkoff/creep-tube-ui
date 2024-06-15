@@ -192,12 +192,18 @@ const BuildComponent = function () {
                                          abscissa={r}
                                          countGraphs={count}/>
                         </div>
-
                         <div className={"d-flex"}>
                             <RadialGraph imageName={'tau_0'} name="\Large \tau_0(r)" ordinates={graphs['tau0']}
                                          abscissa={r}
                                          countGraphs={count}/>
                             <RadialGraph imageName={'tau'} name="\Large \tau(r)" ordinates={graphs['tau']} abscissa={r}
+                                         countGraphs={count}/>
+                        </div>
+                        <div className={"d-flex"}>
+                            <RadialGraph imageName={'s_0'} name="\Large S_0(r)" ordinates={graphs['s0']} abscissa={r}
+                                         countGraphs={count}/>
+                            <RadialGraph imageName={'s'} name="\Large S(r)" ordinates={graphs['s']}
+                                         abscissa={r}
                                          countGraphs={count}/>
                         </div>
                     </>
